@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <!-------jumbotron----------------------------------------->
+  <div class="jumbotron">
+          <h1 class="display-4">Breathe Life into Your Home!</h1>
+  </div>
+{% endblock %}
+
+{% block main %}
+  <div class ="container">
+    <!-------bestsellers----------------------------------------->
+        <h2 class="sub-title">Best Sellers</h2>
+          <div class="row row-cols-1 row-cols-md-3">
+              <div class="col mb-4">
+                <div class="card text-center border-0">
+                  <img src="../static/img/P10_bestSellersMoneyTree.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Money Tree</h5>
+                    <p>$169</p>
+                    <p class="card small-desc">Popular for its use in Feng Shui, the Money Tree is a pet-friendly and air-purifying plant.</p>
+                    <!--basket-btns-->
+                      <div class="basket-btns">
+                          <form action="{{ url_for('main.order') }}">
+                              <input type="hidden" id="product_id" name="product_id" value=10>
+                              <input class="add-basket" type="submit" value="Add to Basket">
+                          </form>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col mb-4">
+                <div class="card text-center border-0">
+                  <img src="../static/img/P11_bestSellersOliverTree.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Olive Tree</h5>
+                    <p>$99</p>
+                    <p class="card small-desc">With shimming sage-green leaves, the olive tree is ready to add delicate color to your home. </p>
+                      <!--basket-btns-->
+                          <div class="basket-btns">
+                            <form action="{{ url_for('main.order') }}">
+                              <input type="hidden" id="product_id" name="product_id" value=11>
+                              <input class="add-basket" type="submit" value="Add to Basket">
+                          </form>
+                          </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col mb-4">
+                <div class="card text-center border-0">
+                  <img src="../static/img/P12_bestSellersToughStuffCollection.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Tough Stuff Collection</h5>
+                    <p>$79</p>
+                    <p class="card small-desc">Three easy and adaptable plants, including a Sansevieria, ZZ Plant, and Hoya variety.</p>
+                      <!--basket-btns-->
+                          <div class="basket-btns">
+                            <form action="{{ url_for('main.order') }}">
+                              <input type="hidden" id="product_id" name="product_id" value=12>
+                              <input class="add-basket" type="submit" value="Add to Basket">
+                            </form>
+                          </div>
+                  </div>
+                </div>
+              </div>
+    </div>
+
+  <!-------about-us----------------------------------------->
+      <div class="about-us">
+          <h3>About <br> Green Tranquility</h3>
+          <p>Welcome to our online green plants website!<br> <br>We are excited to offer a wide variety of lush, healthy plants <br> that are perfect for adding a touch of natural beauty to any home or office space.<br> <br>Whether you're a seasoned plant enthusiast or just starting out, we have something to suit your needs.</p>
+          <button type="button" class="read-more" data-toggle="modal" data-target="#exampleModal">
+              Read More
+          </button>
+
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Green Tranquility</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      We offer easy online ordering and convenient delivery options, it's never been easier to bring a little greenery into your life. <br> <br> So browse our website and find the perfect plant to brighten up your space today!
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <!-- Modal -->
+      </div>
+
+  <!-------display the categories to the users----------------------------------------->
+  <div class ="container">
+    <h2 class="sub-title">Categories</h2>
+      <br>
+      <div class ="categories">
+        <div>
+          <img src="../static/img/defaultcategory.jpg">
+          <span>
+            <a href="{{ url_for('main.allproducts') }}"><h3>All</h3></a>
+          </span>
+        </div>
+          {% for category in categories %}
+              <div>
+                  <img class="categories img" src="{{ url_for('static', filename='img/'+category.image) }}">
+                  <span>
+                      <a href="{{ url_for('main.categoryproducts', categoryid=category.id) }}"><h3>{{ category.name }}</h3></a>
+                  </span>
+              </div>
+          {% endfor %}
+      </div>
+  </div>
+
+  <!-------testimonials----------------------------------------->
+<section class="testimonials">
+  <div class="container">
+    <h2 class="sub-title">Testimonials</h2>
+      <br>
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <div class="profile">
+            <img src="../static/img/user_avatar_1.jpg" class="user">
+            <blackquote>I can't express how happy I am with my purchase from Green Tranquility! The quality of the plants and pots is exceptional, and the accessories are perfect for my gardening needs. The search function made it easy for me to find exactly what I was looking for. Thank you, Green Tranquility, for helping me create a green oasis in my home!  </blackquote>
+            <h3>Sarah Mitchell <span>Plant Enthusiast</span></h3>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="profile">
+            <img src="../static/img/user_avatar_2.jpg" class="user">
+            <blackquote>Green Tranquility has transformed my home into a green paradise! The selection of plants and pots is remarkable, and the website is user-friendly, making it a breeze to navigate through the different categories. The best sellers section is a great feature for those times when I'm not sure what to choose. I can't recommend it enough!  </blackquote>
+            <h3>Lisa Thompson <span>Plant Lover Extraordinaire</span></h3>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="profile">
+            <img src="../static/img/user_avatar_3.jpg" class="user">
+            <blackquote>I have purchased several plants and pots from Green Tranquility, and I am consistently impressed with the quality and variety they offer. The pricing is fair, and the customer service is excellent. The team at Green Tranquility truly understands the needs of plant lovers, and I couldn't be happier with my experience. Kudos to the entire team! </blackquote>
+            <h3>John Turner <span>Budding Gardener</span></h3>
+          </div>
+        </div>
+      </div>
+  </div>
+
+</section>  
+
+  
+{% endblock %}

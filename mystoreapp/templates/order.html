@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<!-- display contents of user basket -->
+<section>  
+    <div class="container">
+
+        <div class="col-12">
+            <h3 style="text-align:center">Your Basket</h3>
+        </div>
+
+        <div class="basket">
+            <!-- each product on seperate  -->
+            
+                <div class="products">
+                    {% for product in order.products %}
+                    <div class="product">
+        
+                        <img src="{{ url_for('static', filename=('img/' + product.image)) }}">
+        
+                        <div class="product-info">
+
+                            <h4 class="product-name">{{ product.name }}</h4>
+        
+                            <h6 class="price">{{ "$%.2f"|format(product.price) }}</h6> 
+
+                            <p class="small-desc">{{ product.description }}</p>
+
+                            <form method="POST" action="{{url_for('main.deleteorderitem')}}">
+                                <input type="hidden" id="id" name="id" value="{{product.id}}">
+                                <input type="submit" value="Remove" class="product-remove">
+                            </form>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+
+             <!-- total price and page controls -->
+            <div class="basket-total">
+                <p>
+                    <span>Total Price</span>
+    
+                    <span>{{ "$%.2f"|format(totalprice) }}</span>
+                </p>
+
+                <a href="{{ url_for('main.deleteorder') }}">Empty Basket</a>
+                <br>
+                <a href="{{ url_for('main.checkout') }}">Checkout</a>
+    
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
